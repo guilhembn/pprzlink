@@ -6,5 +6,6 @@ C Library
    :maxdepth: 2
    :glob:
 	
-   self
+   v1.0/index.rst
+   v2.0/index.rst
 

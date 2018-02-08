@@ -12,9 +12,10 @@ Messages are defined in the `messages.xml`_ file and are grouped into the follow
     * alert
     * intermcu
 
-Please reference `Paparazzi Messages Document`_ for a more detailed overview.
+The list of `Paparazzi Messages`_ can be found in the generated Doxygen documentation.
+Details of the messages binary format can be found in the related `Wiki page <http://wiki.paparazziuav.org/wiki/Messages_Format>`_.
 
-.. _`Paparazzi Messages Document`: http://docs.paparazziuav.org/latest/paparazzi_messages.html
+.. _`Paparazzi Messages`: http://docs.paparazziuav.org/latest/paparazzi_messages.html
 
 Message Classes
 ---------------
@@ -42,5 +43,5 @@ TBD
 InterMCU
 ~~~~~~~~~
 
-TBD
+InterMCU messages are used for communication between airborne MCU when supported and are defined in the intermcu class of the `messages.xml`_ file.
 

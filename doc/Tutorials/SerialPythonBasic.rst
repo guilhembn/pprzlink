@@ -1,3 +1,5 @@
+.. _SerialTutorial:
+
 ==========================================================
 Send and receive messages from a serial device with python
 ==========================================================

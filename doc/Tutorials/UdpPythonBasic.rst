@@ -56,7 +56,14 @@ To send a message, we just need to call the :func:`pprzlink.udp.UdpMessagesInter
 Filtering messages on type
 ==========================
 
-In order to filter the messages according to their type, we will use the :class:`pprzlink.message` API.
+In order to filter the messages according to their type, we will use the :class:`pprzlink.message` API. It can be as simple as testing the :code:`name` attribute of the message.
+
+.. role:: python(code)
+   :language: python
+
+.. literalinclude:: udp_tutorial.py
+    :language: python
+    :lines: 56-57
 
 Complete file
 =============

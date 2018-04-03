@@ -17,8 +17,6 @@
 
 *.depend
 
-doc/_xml/
-
 /build
 /var
 /.idea/

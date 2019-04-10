@@ -26,7 +26,7 @@ DEFAULT_ERROR_LIMIT = 200
 DEFAULT_VALIDATE = True
 
 # List the supported languages. This is done globally because it's used by the GUI wrapper too
-supportedLanguages = ["C"]
+supportedLanguages = ["C","CPP"]
 
 
 def gen_messages(opts) :
@@ -95,7 +95,14 @@ def gen_messages(opts) :
         gen_message_c = __import__(xml.generator_module + "_c")
         gen_message_c.generate(opts.output, xml)
     else:
-        print("Unsupported language %s" % opts.language)
+        if opts.language == 'cpp':
+            if opts.protocol < "2.0":
+                print("CPP is only defined for version 2.0 or higher of pprzlink protocol");
+            else:
+                gen_message_c = __import__(xml.generator_module + "_cpp")
+                gen_message_c.generate(opts.output, xml)
+        else:
+            print("Unsupported language %s" % opts.language)
 
 
 if __name__ == "__main__":

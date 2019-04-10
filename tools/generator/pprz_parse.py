@@ -44,6 +44,7 @@ class PPRZField(object):
         'uint32_t' : '4',
         'int64_t'  : '8',
         'uint64_t' : '8',
+        'string' : '1',
         }
 
         aidx = type.find("[")

@@ -74,22 +74,22 @@ def generate_one(directory, xml, m):
 
 namespace pprzlink {
   namespace ${class_name} {
-    class ${msg_name} : public PprzMsg<${{fields:${type},}}> {
-    enum fields {
-      ${{fields:${field_name}, // ${description}
-    }} 
+    class ${msg_name} : public PprzMessage<${{fields:${type},}}> {
+    public:
+    enum fields {${{fields:
+      ${field_enum_name}, // ${description}}} 
     };
 
     ${{fields:
       /** Getter for field ${field_name} in message ${msg_name}
         * @return ${description}
         */
-      inline auto get_${field_name}() {return get<${field_name}>();}
+      inline ${type}& get_${field_name}() {return get<${field_enum_name}>();}
 
 }}
-      const static MessageId id;
+      const static MessageId msg_id;
     };
-    const MessageId ${msg_name}::id={"${msg_name}",${id},"${class_name}",${class_id}};
+    const MessageId ${msg_name}::msg_id={"${msg_name}",${id},"${class_name}",${class_id}};
   }
 }
 #endif // _VAR_MESSAGES_${class_name}_${msg_name}_HPP_
@@ -108,6 +108,8 @@ def generate(output, xml):
     # add some extra field attributes for convenience with arrays
     for m in xml.message:
         for f in m.fields:
+            # Prevent problems due to some fields names
+            f.field_enum_name = 'field_'+f.field_name
             if f.array_type == 'VariableArray':
                 f.type = 'std::vector<'+f.type+'> '
             elif f.array_type == 'FixedArray':

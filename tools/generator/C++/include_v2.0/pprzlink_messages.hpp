@@ -28,7 +28,8 @@
 #define PPRZLINK_MESSAGES_HPP
 
 #include <tuple>
-#include "tuple_iteration.h"
+#include <iostream>
+#include "tuple_iteration.hpp"
 
 namespace pprzlink
 {
@@ -63,10 +64,7 @@ namespace pprzlink
             template<typename T>
             void operator()(std::vector<T> &vec)
             {
-                for (auto item: vec)
-                {
-                    value += sizeof(item); // Variable array
-                }
+              value += vec.length() * sizeof(T); // Variable array
             }
 
             template<typename T,int N>
@@ -106,7 +104,7 @@ namespace pprzlink
     template<typename msg_type>
     void printInfo(msg_type const &m)
     {
-        std::cout << "Message " << msg_type::id.msgName << "(" << (int)msg_type::id.msgId << ") class " << msg_type::id.className << "(" << (int)msg_type::id.classId << ") with "  << nbFields(m) << " Fields." << std::endl;
+        std::cout << "Message " << msg_type::msg_id.msgName << "(" << (int)msg_type::msg_id.msgId << ") class " << msg_type::msg_id.className << "(" << (int)msg_type::msg_id.classId << ") with "  << nbFields(m) << " Fields." << std::endl;
     }
 }
 

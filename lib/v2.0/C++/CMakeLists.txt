@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(pprzlink++)
 
 set(CMAKE_CXX_STANDARD 17)
-
+include(GNUInstallDirs)
 include_directories(ivy-c++)
 include_directories(pprzlink)
 include_directories(pprzlink/exceptions)
@@ -29,12 +29,14 @@ set(SOURCE
         pprzlink/MessageField.cpp
         pprzlink/MessageFieldTypes.cpp
         pprzlink/PprzTransport.cpp)
-
-set(HEADERS
+set(HEADERS_IVY
         ivy-c++/Ivy.h
         ivy-c++/IvyApplication.h
         ivy-c++/IvyCallback.h
-        pprzlink/exceptions/pprzlink_exception.h
+)
+set(HEADERS_PPRZLINK_EXCEPTION
+        pprzlink/exceptions/pprzlink_exception.h)
+set(HEADERS_PPRZLINK
         pprzlink/BoostSerialPortDevice.h
         pprzlink/Device.h
         pprzlink/FieldValue.h
@@ -57,6 +59,19 @@ target_link_libraries(${PROJECT_NAME}
         tinyxml2
         Boost::system
         )
+install(TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}Config 
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+export(TARGETS
+        ${PROJECT_NAME}
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+)
+install(EXPORT ${PROJECT_NAME}Config DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake")
+install(FILES ${HEADERS_IVY} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ivy-c++")
+install(FILES ${HEADERS_PPRZLINK} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/pprzlink")
+install(FILES ${HEADERS_PPRZLINK_EXCEPTION} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/pprzlink/exceptions")
 
-install(TARGETS pprzlink++ DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include)
